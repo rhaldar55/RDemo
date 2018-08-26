@@ -18,6 +18,7 @@ public class HttpDataHandler {
 
         URL url;
         String response="";
+
         try{
             url =new URL(requestUrl);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();

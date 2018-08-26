@@ -162,7 +162,7 @@ public class UserDetailsActivity extends AppCompatActivity implements LocationLi
             public void onClick(View v) {
 
                 Toast.makeText(getApplicationContext(),"Location is Getting...",Toast.LENGTH_SHORT).show();
-                
+
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
