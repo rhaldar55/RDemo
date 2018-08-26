@@ -104,32 +104,30 @@ public class UserDetailsActivity extends AppCompatActivity implements LocationLi
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        lManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                1000, 1, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        double lati=location.getLatitude();
-                        double longi=location.getLongitude();
-                        //lat=lati;
-                        //lng=longi;
-                        Log.d("TEST", "-------->"+longi+"   "+lati);
-                    }
+        if (lManager!=null){
+            lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            lManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    1000, 1, new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            double lati=location.getLatitude();
+                            double longi=location.getLongitude();
+                            //lat=lati;
+                            //lng=longi;
+                            Log.d("TEST", "-------->"+longi+"   "+lati);
+                        }
 
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                    }
-                    @Override
-                    public void onProviderEnabled(String provider) {
-                    }
-                    @Override
-                    public void onProviderDisabled(String provider) {
-                    }
-                });
-
-
-
-
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {
+                        }
+                        @Override
+                        public void onProviderEnabled(String provider) {
+                        }
+                        @Override
+                        public void onProviderDisabled(String provider) {
+                        }
+                    });
+        }
 
     }
 
@@ -289,6 +287,7 @@ public class UserDetailsActivity extends AppCompatActivity implements LocationLi
         Intent i =new Intent(UserDetailsActivity.this,LogInActivity.class);
         startActivity(i);
         finish();
+
     }
 
 
