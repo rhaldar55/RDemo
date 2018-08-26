@@ -160,6 +160,9 @@ public class UserDetailsActivity extends AppCompatActivity implements LocationLi
         btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(getApplicationContext(),"Location is Getting...",Toast.LENGTH_SHORT).show();
+                
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -219,14 +222,10 @@ public class UserDetailsActivity extends AppCompatActivity implements LocationLi
 
     private class GetAddress extends AsyncTask<String, Void, String> {
 
-        ProgressDialog dialog = new ProgressDialog(UserDetailsActivity.this);
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog.setMessage("Please wait ...");
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.show();
+
         }
 
         @Override
@@ -263,9 +262,7 @@ public class UserDetailsActivity extends AppCompatActivity implements LocationLi
                 e.printStackTrace();
             }
 
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-            }
+
         }
     }
 
