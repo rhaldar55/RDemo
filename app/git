@@ -1,0 +1,171 @@
+
+git add ==> Sending files from working dir to staging area
+git commit ==>  staged changes will be moved to local repo
+git push ==> To move files from local repo to remote repo
+git clone ==> To create a new local repo from remote repo
+git pull ==> To get updated files from remote repo to localrepo
+
+
+//check status*
+git status
+
+//GIT ADD
+git add a.txt
+git add .
+git add a.txt b.txt c.txt
+git add *.txt		//All txt file
+
+
+//Config USER
+git config --global user.email "rh@mail.com"
+git config --global user.name "rh"
+
+//GIT COMMIT
+git commit	
+git commit -m "message here"
+
+
+//listing files
+ls
+git ls-files	//All tracked files list
+
+
+
+git int ==> Create empty local repo
+git status ==> shows current status
+		//untracked files 
+		//modified files 
+		//staged files
+
+git status -s ==> consise output
+
+git add	==> to add files from working to staging area
+			//ready for commit
+
+git add . ==> to add all files in cwd
+git add a.txt file2.txt==> to add perticular files
+git add *.java	==> to add perticular extention files
+git add *.txt
+git add *.java *.txt
+
+
+git commit -m "commit message"	==> commit staged changes 
+					//commit id //40 hexadecimal number
+git commit -a -m "message" ==> if file is already in staged area
+git commit -am ""
+
+
+git log ==> Shows history of all commits
+			//detaild log info
+git log --help	
+
+HEAD //most recent commit
+
+
+git config --list ==> listout all configuration
+git config user.name
+git config user.email
+
+//Local Config //*current repo
+git config user.name "Rh"
+git config user.email "Rh@gmail.com"
+
+//Global Config
+git config --global user.name "rh"
+git config --global user.email "rh@mail.com"
+
+
+-----------------------------------------------------
+git log
+========
+git log
+git log file1.txt	//show log perticular file
+git log --oneline	//show log OneLine per commit(commit id (7char), message)
+
+git log -n 2		//last 2 commit
+git log -n 3 --oneline
+git log -3
+git log -3 --oneline
+git log --max-count=3
+
+git log --grep=<PATTERN>	//search based on given pattern
+git log --grep=rh-231
+
+
+git log --since="2021-10-05"	//more recent than a specific date or time
+git log --after="2021-10-05"
+git log --after="10 days ago"
+git log --after="3 hours ago"
+
+
+git log --until="17-05-2020"	//show commits older than a scecific time
+git log --before="17-05-2020"
+git log --before="1 day ago"
+git log --before="5 minutes ago"
+
+
+git log --auther=<pattern>		//Show commits based on Auther/USER
+git log --auther="rh"
+git log --auther=rh
+
+
+//to display extra information
+//branch name, head, tag etc
+git log --decorate
+
+-----------------------------------------------------
+git diff
+=========
+
+git diff file1.txt	//compare wd and staging area
+git diff HEAD file1.txt	//wd vs last commit
+git diff --staged HEAD file1.txt //staged copy vs last commit
+git diff --staged file1.txt
+
+git diff ef7a25f(commit Id) file1.txt //wd vs specific commit
+git diff ef7a25f ef9a28f file1.txt	//between two specified commit
+git diff HEAD HEAD~1 file1.txt //last commit vs but one commit
+
+
+git diff ef7a25f ef9a28f //Compare all file
+
+
+
+//diff in content of between two branches
+git diff master test
+
+//diff in local repo and remote repo
+git diff master origin/master
+
+-------------------------------------------------------
+
+GUI Tool ==> Checking difference
+======================
+
+Helix Visual Merge Tool (p4merge)
+Meld
+etc
+
+--------------------------------------------------------
+rm command	(Removing Files)
+=================
+
+//remove file from both staging and wd
+git rm file1.txt
+git rm -r . //remove all files
+
+
+
+//remove file from only staging area but not from wd
+git rm --cached file1.txt
+
+
+//remove file from only wd but not from staging area
+rm file1.txt
+
+
+
+
+
+
+
