@@ -163,6 +163,300 @@ git rm --cached file1.txt
 //remove file from only wd but not from staging area
 rm file1.txt
 
+---------------------------------------------------
+
+Undo changes (git checkout)
+=================
+we can use checkout command to discard unstaged changes in
+the tracked files of wd
+
+unstaged changes -> changes which are not added in staging area
+tracked files -> Files which are tracked 
+
+
+
+git checkout -- file1.txt
+git checkout .		//All files
+git checkout  //lst all eligible files for checkout
+
+---------------------------------------------------------
+
+
+git references
+===================
+
+//40 length commit id | 7 character
+
+some sample name for these commit id 
+
+//most recent commit id ==> master or HEAD
+.git/refs directory ==> here all reference will stored
+
+git show 574587		//info about perticular commit
+git show master
+git show HEAD
+git show HEAD~1
+git show HEAD~2
+
+----------------------------------------------------
+
+git reset command (just like reset to default settings)
+======================
+
+
+#1. To remove changes from staging area
+	- It will bring changes from stagng area back to wd
+	  (opposite to git add command)
+
+	git reset file1.txt
+	
+	
+	
+
+#2. To undo commits at repo level
+	-moves the HEAD to the specified commit, and all remainign recent 
+	 commits will be deleted from repo
+	 
+	 git reset <mode> id
+
+	//mode:
+		--mixed
+		--soft
+		--hard
+	
+	//--mixed reset mode:
+		(default mode)//To discard/remove commmit from repo and from staging area
+					// it won't touch wd 
+		
+		git reset --mixed commit_id
+		git reset commit_id
+		
+		
+		git reset --mixed 0as5a62	//to remove last 
+		git reset 0as5a62
+		git reset HEAD~1
+		
+		
+	//--mixed soft mode:
+		//it won't touch wd and staging areas
+		
+	
+	//--mixed hard mode:
+		//changes will be removed from everywhere
+		  (local repo,, staging area, wd)
+		//impossible to revert back our changes
+		
+		git reset --hard 0as5a62
+
+-------------------------------------------------------------------
+git Aliasing:
+=================
+
+Alias --> Nick name or other alternative name
+
+	git config --global alias.<aliasName> "<original command without git>" 
+	git config --global alias.one "log --oneline"
+	
+	//git one
+	
+	git config --global alias.s "status"
+	//git s
+	
+
+		
+-------------------------------------------------------------------
+
+git ignore : (.gitignore)
+=============
+
+	//vi .gitignore
+			
+			a.txt	#Ignore a.txt
+			.txt 	#All txt file
+			.*		#Ignore all hidden files
+			logs/	#Ignore all file in logs dir
+	
+	
+
+-------------------------------------------------------------------
+
+Branching
+===============
+
+	
+	git branch	//To view available branches
+	git branch branch_name	//To Create new branch
+	git branch androidBranch
+	git checkout branch_name	//switch from one branch to another
+
+	git checkout -b iosbr	//create and checkout
+	
+	
+	
+------------------------------------------------------------------
+
+Merging
+=============
+
+	git merge child_branch
+	
+	1) fast-forward
+	3) three-way
+-----------------------------------------------------------------
+
+Delete Branch
+=================
+	
+	git branch -d <branch_name>
+	git branch -d feature
+
+------------------------------------------------------------------
+
+Rebase
+=============
+(alternative to merge) 
+2-step process
+
+	git checkout feature
+	git rebase master
+		//whatever new commits are there in the feature branch
+		//will be duplicated by git.
+	
+	
+	git checkout master
+	git merge feature
+
+
+----------------------------------------------------------------
+Stash
+=============
+	
+	git stash
+	git stash list
+	
+	git stash pop //bring stashed changes from temp to wd
+					//corresponding entry will be deleted
+	git stash pop <stash_ID>
+	
+	git stash apply //bring stashed changes from temp to wd
+					//corresponding entry won't be deleted
+					//we can use thid stash in other branch
+	
+	git show <stash_ID> //show stash changes
+
+Partial Stash==>
+	git stash -p
+	//file by file
+
+Delete stash==>
+	git stash clear //delete all available stashes
+	git stash drop <stash_ID>//delete perticular stash
+	
+
+	
+----------------------------------------------------------------
+Repository
+======================
+
+	git remote //to configure remote repo to local repo
+
+	git remote add alias_name remote_repo_url
+	git remote add origin/my_remote https:github.com/.../.../...
+	
+	
+	git remote //check remote 
+	git remote -v // check remote url
+	
+	
+	git push:=>
+		//send/push our code from local repo to remote repo
+		
+		git push <repote_repo_name> <branch_name> 
+		git push origin master
+		
+		
+	git clone:=>
+		//create new local repo with all files and history of remote repo
+		git clone <remote_repo_url>
+		
+	git fetch//to check whether update are availabe or not
+			// It will download latest meta-data info
+	
+	git pull//to get updates from remote repo into local
+			//fetch+merge
+	
+	//If any changes in remote repo, git push is not allowed. it will
+	ask us to pull first
+
+----------------------------------------------------------------------
+git tagging
+============
+
+1)Light Weight Tag:
+	git tag <tag_name>
+	
+	git tag -l	//available tags
+	git tag --list
+		
+		
+	git tag -d <tag_name>	//delete a tag
+	
+2)Annotated Tag
+		//Tag with information
+	
+	git tag -a <tag_name> -m <tag_message>
+	git tag -a V-1.0.0 -m "release 1.0.0"
+	
+	
+##tag to a previous commit:
+	
+	git tag -a <tag_name> <commit_id> -m <tag_message>
+
+##update existing tag
+	1) delete tag and recreate tag
+		git tag  -d V-1.0.0
+		git tag  -a V-1.0.0 <commit_id> -m <tag_message>
+		
+	2) using -f option or --force option to replace an existing
+			tag without deletion.
+		
+		git tag -a V-1.0.0 -f <commit_id> -m <tag_message>
+		git tag -a V-1.0.0 -f <commit_id> -m <tag_message>
+
+##push tags to the remote repo
+	
+	git push origin master
+		//code + commit history but not tags
+		//we have to push tags seprately
+	
+	git push origin <tag_name> //push single tag
+	git push origin master --tags //push all tag
+	
+	
+##delete tags from remote repo
+	
+	git tag  -d V-1.0.0 //delete from local repo
+	git push origin  :<tag_name> //delete from remote repo
+								//not from local repo
+	git push origin  :V-1.0.0
+	
+	
+	
+---------------------------------------------------------------
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+	 
 
 
 
