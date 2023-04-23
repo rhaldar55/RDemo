@@ -444,6 +444,78 @@ git tagging
 	
 ---------------------------------------------------------------
 
+GIT
+
+Git config
+========
+Git config —global user.name “USERNAME”
+Git config —global user.email “EMAIL”
+
+Git add <file name>	//Add single file
+Git add . //Add all file in once
+
+git commit -m “commit message”
+
+Git push origin master
+Git clean -f //remove untracked, don’t want to track (WD)
+
+
+
+Git tag <tag_name> //create a tag
+Git tag //list all tag
+Git tag -a <tag_name> -m <msg> //create a tag with msg
+Git tag <tag_name> <commit_id> //create tag for previous commit
+Git push —tags //push tag 
+
+
+
+
+
+
+
+
+
+
+————————————————————————————————
+
+
+
+
+Get all changes from staging to working directory
+Git reset
+
+All changes fall back to staging and commit is removed
+Git reset —soft HEAD~1
+Git reset —soft <hash_Index>
+
+Mixed and soft mode data is not lost
+
+
+Revert my commit and all changes permanently gone.
+Git reset —hard HEAD~1
+
+
+
+Linear merge in linear history
+Git rebase <master>
+
+
+Combine 2 commits in one commit (squash)
+git rebase -i HEAD~2 
+
+Git checkout master
+Git pull
+Git checkout <branch>
+Git merge/rebase master
+
+//change last commit msg
+git commit --amend -m "This is new msg";      
+//add new file in last commit        
+Git commit —amend
+
+
+
+
 	
 	
 	
